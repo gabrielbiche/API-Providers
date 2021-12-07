@@ -1,0 +1,28 @@
+{
+  "name": "api-petshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielbiche/node.js-crud.git"
+  },
+  "author": "Gabriel da Silva Biche",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielbiche/node.js-crud/issues"
+  },
+  "homepage": "https://github.com/gabrielbiche/node.js-crud#readme",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.12.0-beta.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
