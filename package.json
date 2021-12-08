@@ -20,7 +20,7 @@
   "homepage": "https://github.com/gabrielbiche/node.js-crud#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "sequelize": "^6.12.0-beta.1"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-import { database } from '../configuration'
+import { database } from '../configuration.js'
 
 const instance = new Sequelize(
   database.databaseName,

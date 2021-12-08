@@ -1,10 +1,11 @@
 import express from 'express'
 
-import { port } from './configuration'
+import { port } from './configuration.js'
+import providerRoute from '../src/routes/providers-route.js'
 
 const app = express()
 
 app.use(express.json())
-app.listen(port, () => console.log(`Server running on port ${port}`))
+app.use(providerRoute)
 
-app.get('/', (req, res) => res.send('ola'))
+app.listen(port, () => console.log(`Server running on port ${port}`))
