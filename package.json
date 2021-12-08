@@ -1,14 +1,16 @@
 {
   "name": "api-petshop",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node API CRUD",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon -w src --exec \"babel-node src --presets env\"",
+    "build": "babel src -s -D -d dist --presets env",
+    "start": "node dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabrielbiche/node.js-crud.git"
+    "url": "https://github.com/gabrielbiche/node.js-crud.git"
   },
   "author": "Gabriel da Silva Biche",
   "license": "ISC",
@@ -17,12 +19,13 @@
   },
   "homepage": "https://github.com/gabrielbiche/node.js-crud#readme",
   "dependencies": {
-    "config": "^3.3.6",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "sequelize": "^6.12.0-beta.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "nodemon": "^2.0.15"
   }
 }
