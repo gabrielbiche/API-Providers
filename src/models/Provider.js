@@ -11,6 +11,7 @@ class Provider {
   }
 
   async create() {
+    this.validate()
     const result = await providersDao.insert({
       company: this.company,
       email: this.email,
@@ -46,6 +47,15 @@ class Provider {
 
   async remove() {
     await providersDao.remove(this.id)
+  }
+
+  validate() {
+    const data = ['company', 'email', 'category']
+    data.forEach(element => {
+      const value = this[element]
+      if (typeof value !== 'string' || value.length === 0)
+        throw new Error(`The '${element}' field is invalid`)
+    })
   }
 }
 
