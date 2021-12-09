@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
-import providersController from '../controllers/providers-controller'
+import providersController from '../controllers/providers-controller.js'
 
 const router = Router()
 
-router.get('/providers', providersController.getAllProvider)
-router.get('/providers/:id', providersController.getAProvider)
-router.post('/providers', providersController.createProvider)
-router.put('/providers/:id', providersController.updateProvider)
-router.delete('/providers/:id', providersController.deleteProvider)
+router.get('/providers', providersController.index)
+router.get('/providers/:id', providersController.show)
+router.post('/providers', providersController.store)
+router.put('/providers/:id', providersController.update)
+router.delete('/providers/:id', providersController.exclude)
 
 export default router

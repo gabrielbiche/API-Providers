@@ -1,26 +1,52 @@
-import Sequelize from 'sequelize'
+import providersDao from '../dao/providers-dao.js'
 
-import instance from '../database/index.js'
+class Provider {
+  constructor({ id, company, email, category, createdAt, updateAt }) {
+    this.id = id
+    this.company = company
+    this.email = email
+    this.category = category
+    this.createdAt = createdAt
+    this.updateAt = updateAt
+  }
 
-const columns = {
-  company: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  category: {
-    type: Sequelize.ENUM('Portion', 'toys'),
-    allowNull: false
+  async create() {
+    const result = await providersDao.insert({
+      company: this.company,
+      email: this.email,
+      category: this.category
+    })
+    ;(this.id = result.id),
+      (this.createdAt = result.createdAt),
+      (this.updateAt = result.updateAt)
+  }
+
+  async load() {
+    const find = await providersDao.getById(this.id)
+    this.company = find.company
+    this.email = find.email
+    this.category = find.category
+    this.createdAt = find.createdAt
+    this.updateAt = find.updateAt
+  }
+
+  async update() {
+    await providersDao.getById(this.id)
+    const data = ['company', 'email', 'category']
+    const dataForUpdate = {}
+    data.forEach(element => {
+      const value = this[element]
+      if (typeof value === 'string' && value.length > 0)
+        dataForUpdate[element] = value
+    })
+    if (Object.keys(dataForUpdate).length === 0)
+      throw new Error('No update data provided.')
+    await providersDao.update(this.id, dataForUpdate)
+  }
+
+  async remove() {
+    await providersDao.remove(this.id)
   }
 }
 
-const options = {
-  freezeTableName: true,
-  tableName: 'providers',
-  timesTamps: true
-}
-
-export default instance.define('providers', columns, options)
+export default Provider

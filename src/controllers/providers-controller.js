@@ -1,42 +1,68 @@
 import Provider from '../models/Provider.js'
+import providersDao from '../dao/providers-dao.js'
 
-const getAllProvider = async (request, response) => {
+const index = async (request, response) => {
   try {
-    const result = await Provider.findAll()
+    const result = await providersDao.list()
     return response.status(200).json(result)
   } catch (error) {
-    return response.status(400).json(error)
+    return response.status(400).json({ Message: error })
   }
 }
 
-const getAProvider = async (request, response) => {
+const show = async (request, response) => {
   try {
     const id = parseInt(request.params.id)
-    const result = await Provider.findByPk(id)
-    return response.status(200).json(result)
+    const provider = new Provider({id: id})
+    await provider.load()
+    return response.status(200).json(provider)
   } catch (error) {
-    return response.status(400).json(error)
+    return response.status(400).json({ Message: error.message })
   }
 }
 
-const createProvider = async (request, response) => {
+const store = async (request, response) => {
   try {
     const { company, email, category } = request.body
-    const result = await Provider.create({ company, email, category })
-    return response.status(201).json(result)
+    const provider = new Provider({ company, email, category })
+    await provider.create()
+    return response.status(201).json(provider)
   } catch (error) {
-    return response.status(400).json(error)
+    return response.status(400).json({ Message: error.message })
   }
 }
 
-const updateProvider = async (request, response) => {}
+const update = async (request, response) => {
+  try {
+    const id = request.params.id
+    const { company, email, category } = request.body
+    const data = Object.assign({}, { company, email, category }, {id: id} )
+    const provider = new Provider(data)
+    await provider.update()
+    return response.status(204).end()
+  } catch (error) {
+    return response.status(400).json({ Message: error.message })
+  }
+}
 
-const deleteProvider = async (request, response) => {}
+const exclude = async (request, response) => {
+  try {
+    const id = request.params.id
+    const provider = new Provider({id: id})
+    await provider.load()
+    await provider.remove()
+    return response.status(204).end()
+  } catch (error) {
+    return response.status(400).json({ Message: error.message })
+    
+  }
+  
+}
 
 export default {
-  getAllProvider,
-  getAProvider,
-  createProvider,
-  updateProvider,
-  deleteProvider
+  index,
+  show,
+  store,
+  update,
+  exclude
 }
