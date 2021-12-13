@@ -1,12 +1,15 @@
 import providersTable from '../database/providersTable.js'
+import { NotFound } from '../errors/NotFound.js'
 
 const list = () => providersTable.findAll()
 
 const insert = provider => providersTable.create(provider)
 
 const getById = async id => {
-  const found = await providersTable.findByPk(id)
-  if (!found) throw new Error('Provider not found.')
+  const found = await providersTable.findOne({ where: { id: id } })
+  if (!found) {
+    throw new NotFound()
+  }
   return found
 }
 

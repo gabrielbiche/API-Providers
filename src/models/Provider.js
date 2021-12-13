@@ -1,4 +1,6 @@
 import providersDao from '../dao/providers-dao.js'
+import { InvalidField } from '../errors/InvalidField.js'
+import { NoDataProvided } from '../errors/NoDataProvided.js'
 
 class Provider {
   constructor({ id, company, email, category, createdAt, updateAt }) {
@@ -40,8 +42,7 @@ class Provider {
       if (typeof value === 'string' && value.length > 0)
         dataForUpdate[element] = value
     })
-    if (Object.keys(dataForUpdate).length === 0)
-      throw new Error('No update data provided.')
+    if (Object.keys(dataForUpdate).length === 0) throw new NoDataProvided()
     await providersDao.update(this.id, dataForUpdate)
   }
 
@@ -54,7 +55,7 @@ class Provider {
     data.forEach(element => {
       const value = this[element]
       if (typeof value !== 'string' || value.length === 0)
-        throw new Error(`The '${element}' field is invalid`)
+        throw new InvalidField(element)
     })
   }
 }
