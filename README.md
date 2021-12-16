@@ -6,8 +6,9 @@ Technologies:
   Express;
   Sequelize;
   Babel;
-  Architectural style REST.
-
+  Architectural style RESTFUL;
+  Software architecture pattern MVC. 
+  
 API Possibilities: 
   List providers;
   Get details of a provider;
