@@ -1,5 +1,4 @@
-# node.js-crud
-API Petshop CRUD.
+# Node API CRUD Providers
 
 Technologies:
   Node.js;
